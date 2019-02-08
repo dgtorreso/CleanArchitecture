@@ -8,7 +8,7 @@ namespace CleanArchitecture.Tests
 
         public ToDoItemBuilder Id(int id)
         {
-            _todo.Id = id;
+            //_todo.Id = id;
             return this;
         }
 

@@ -20,7 +20,6 @@ namespace CleanArchitecture.Web.ApiModels
         {
             return new ToDoItemDTO()
             {
-                Id = item.Id,
                 Title = item.Title,
                 Description = item.Description,
                 IsDone = item.IsDone

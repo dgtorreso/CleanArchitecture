@@ -17,7 +17,8 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public T GetById<T>(int id) where T : BaseEntity
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            //TODO: ADD logic
+            return null;
         }
 
         public List<T> List<T>() where T : BaseEntity

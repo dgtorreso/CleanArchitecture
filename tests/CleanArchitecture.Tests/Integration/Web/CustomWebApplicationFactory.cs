@@ -50,7 +50,7 @@ namespace CleanArchitecture.Tests.Integration.Web
                     try
                     {
                         // Seed the database with test data.
-                        SeedData.PopulateTestData(db);
+                        //SeedData.PopulateTestData(db);
                     }
                     catch (Exception ex)
                     {
