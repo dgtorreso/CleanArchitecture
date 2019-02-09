@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Web", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Tests", "tests\CleanArchitecture.Tests\CleanArchitecture.Tests.csproj", "{AEE17BAB-D187-4BC5-B640-40CC0749566C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.AngularWeb", "CleanArchitecture.AngularWeb\CleanArchitecture.AngularWeb.csproj", "{D071B706-7A82-49DC-AFB1-3CF0C7CD77CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.AngularWeb", "src\CleanArchitecture.AngularWeb\CleanArchitecture.AngularWeb.csproj", "{D071B706-7A82-49DC-AFB1-3CF0C7CD77CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
