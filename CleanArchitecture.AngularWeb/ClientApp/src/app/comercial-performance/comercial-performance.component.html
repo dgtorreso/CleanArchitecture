@@ -1,0 +1,22 @@
+<h1>atividades</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!atividades"><em>Loading...</em></p>
+
+<table class='table' *ngIf="atividades">
+  <thead>
+    <tr>
+      <th>co_atividade</th>
+      <th>ds_atividade</th>
+      <th>co_tipo_usuario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let atividade of atividades">
+      <td>{{ atividade.co_atividade }}</td>
+      <td>{{ atividade.ds_atividade }}</td>
+      <td>{{ atividade.co_tipo_usuario }}</td>
+    </tr>
+  </tbody>
+</table>
