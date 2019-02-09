@@ -1,14 +1,98 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>CleanArchitecture.AngularWeb</title>
-  <base href="/">
 
+<!DOCTYPE html>
+<html lang="en">
+<!--================================================================================
+Item Name: Materialize - Material Design Admin Template
+Version: 4.0
+Author: PIXINVENT
+Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+  <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+  <title>Materialize - Material Design Admin Template</title>
+  <base href="/">
+  <!-- CORE CSS-->
+  <link href="assets/css/materialize.css" type="text/css" rel="stylesheet">
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+  <!-- Custome CSS-->
+  <link href="assets/css/custom/custom.css" type="text/css" rel="stylesheet">
+  <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+  <link href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+  <link href="assets/vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <!-- Start Page Loading -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+  <!-- End Page Loading -->
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+  <!-- START HEADER -->
+  <header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+      <nav class="navbar-color gradient-45deg-light-blue-cyan">
+        <div class="nav-wrapper">
+          <ul class="left">
+            <li>
+              <h1 class="logo-wrapper">
+                <a href="index.html" class="brand-logo darken-1">
+                  <img src="agence.png" alt="materialize logo" style="height: 30px;">
+                </a>
+              </h1>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <!-- end header nav-->
+  </header>
+  <!-- END HEADER -->
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+  <!-- START MAIN -->
+  <div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+      <app-root>Loading...</app-root>
+    </div>
+    <!-- END WRAPPER -->
+  </div>
+  <!-- END MAIN -->
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+  <!-- START FOOTER -->
+  <footer class="page-footer gradient-45deg-light-blue-cyan">
+    <div class="footer-copyright">
+      <div class="container">
+        <span>
+          Copyright ©
+          <script type="text/javascript">
+            document.write(new Date().getFullYear());
+          </script> <a class="grey-text text-lighten-2" href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" target="_blank">PIXINVENT</a> All rights reserved.
+        </span>
+        <span class="right hide-on-small-only"> Design and Developed by <a class="grey-text text-lighten-2" href="https://pixinvent.com/">PIXINVENT</a></span>
+      </div>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+  <!-- ================================================
+  Scripts
+  ================================================ -->
+  <!-- jQuery Library -->
+  <script type="text/javascript" src="assets/vendors/jquery-3.2.1.min.js"></script>
+  <!--materialize js-->
+  <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <!--scrollbar-->
+  <script type="text/javascript" src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+  <script type="text/javascript" src="assets/js/plugins.js"></script>
+  <!--custom-script.js - Add your own theme custom JS-->
+  <script type="text/javascript" src="assets/js/custom-script.js"></script>
 </body>
 </html>
