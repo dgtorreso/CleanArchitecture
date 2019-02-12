@@ -13,11 +13,14 @@ namespace CleanArchitecture.Core.Entities
         public int co_sistema { get; set; }
 
         public long? co_cliente { get; set; }
+        public virtual cao_cliente Cao_Cliente { get; set; }
 
         [StringLength(50)]
         public string co_usuario { get; set; }
+        public virtual cao_usuario Cao_Usuario { get; set; }
 
         public long? co_arquitetura { get; set; }
+        public virtual cao_arquitetura_os Cao_Arquitetura_Os  { get; set; }
 
         [StringLength(200)]
         public string no_sistema { get; set; }
@@ -47,5 +50,7 @@ namespace CleanArchitecture.Core.Entities
         public DateTime? dt_entrega { get; set; }
 
         public int? co_email { get; set; }
+
+        public virtual ICollection<cao_fatura> Cao_Faturas { get; set; }
     }
 }

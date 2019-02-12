@@ -2,21 +2,137 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!atividades"><em>Loading...</em></p>
+<p *ngIf="obteniendoDatos"><em>Loading...</em></p>
 
-<table class='table' *ngIf="atividades">
-  <thead>
-    <tr>
-      <th>co_atividade</th>
-      <th>ds_atividade</th>
-      <th>co_tipo_usuario</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let atividade of atividades">
-      <td>{{ atividade.co_atividade }}</td>
-      <td>{{ atividade.ds_atividade }}</td>
-      <td>{{ atividade.co_tipo_usuario }}</td>
-    </tr>
-  </tbody>
-</table>
+<form (ngSubmit)="onSubmit(contactForm);" #contactForm="ngForm">
+  <div class="row">
+    <div class="col s2">
+      <label for="desdeMes" class="labelSelect">Desde Mes</label>
+      <select placehoder="hola" #desdeMes [(ngModel)]="ContactModel.desdeMes" name="DesdeMes" class="select-custom" required>
+        <option value="1" selected>Jan</option>
+        <option value="2">Fev</option>
+        <option value="3">Mar</option>
+        <option value="4">Abr</option>
+        <option value="5">Mai</option>
+        <option value="6">Jun</option>
+        <option value="7">Jul</option>
+        <option value="8">Ago</option>
+        <option value="9">Set</option>
+        <option value="10">Out</option>
+        <option value="11">Nov</option>
+        <option value="12">Dez</option>
+      </select>
+    </div>
+    <div class="col s2">
+      <label for="desdeAnio" class="labelSelect">Desde Año</label>
+      <select #desdeAnio [(ngModel)]="ContactModel.desdeAnio" class="select-custom" name="DesdeAnio" required>
+        <option selected>2005</option>
+        <option>2006</option>
+        <option>2007</option>
+      </select>
+    </div>
+    <div class="col s2">
+      <label for="hastaMes" class="labelSelect">Hasta Mes</label>
+      <select #hastaMes [(ngModel)]="ContactModel.hastaMes" class="select-custom" name="HastaMes" required>
+        <option value="1">Jan</option>
+        <option value="2">Fev</option>
+        <option value="3">Mar</option>
+        <option value="4">Abr</option>
+        <option value="5">Mai</option>
+        <option value="6">Jun</option>
+        <option value="7">Jul</option>
+        <option value="8">Ago</option>
+        <option value="9">Set</option>
+        <option value="10">Out</option>
+        <option value="11">Nov</option>
+        <option value="12" selected>Dez</option>
+      </select>
+    </div>
+    <div class="col s2">
+      <label for="hastaAnio" class="labelSelect">Hasta Año</label>
+      <select #hastaAnio [(ngModel)]="ContactModel.hastaAnio" class="select-custom" name="HastaAnio" required>
+        <option>2005</option>
+        <option>2006</option>
+        <option>2007</option>
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="input-field">
+      <button [ngClass]="{'btn-flat waves-effect': !puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': puedeMostrarClientes}" (click)="mostrarClientes($event)">Clientes</button>
+      <button [ngClass]="{'btn-flat waves-effect': puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': !puedeMostrarClientes}" (click)="mostrarConsultores($event)">Consultores</button>
+    </div>
+  </div>
+
+  <br />
+
+  <div *ngIf="!obteniendoDatos" [ngClass]="{'hidden': !puedeMostrarClientes}" class="row">
+    <div class="col s4">
+      <select multiple matSelect [(ngModel)]="listaClientesSel" name="ListaClientesSel" style="display: inherit !important;">
+        <option *ngFor="let option of listaClientes" [ngValue]="option">{{ option.descripcion }}</option>
+      </select>
+    </div>
+    <div class="col s3">
+      <button (click)="agregarClientes($event)" class="btn waves-effect waves-light purple lightrn-1 btn-xs">Agregar</button>
+      <button (click)="quitarClientes($event)" class="btn waves-effect waves-light red lightrn-1 btn-xs">Quitar</button>
+
+    </div>
+    <div class="col s4">
+      <select multiple matSelect [(ngModel)]="clientesSel" name="ClientesSel" style="display: inherit !important;">
+        <option *ngFor="let option of clientes" [ngValue]="option">{{ option.descripcion }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="!obteniendoDatos" [ngClass]="{'hidden': puedeMostrarClientes}" class="row">
+    <div class="col s4">
+      <select multiple matSelect [(ngModel)]="listaConsultoresSel" name="ListaConsultoresSel" style="display: inherit !important;">
+        <option *ngFor="let option of listaConsultores" [ngValue]="option">{{ option.nombre }}</option>
+      </select>
+    </div>
+    <div class="col s2">
+      <input type="button" (click)="agregarConsultores($event)" value="Agregar" class="btn waves-effect waves-light purple lightrn-1 btn-xs" />
+      <input type="button" (click)="quitarConsultores($event)" value="Quitar" class="btn waves-effect waves-light red lightrn-1 btn-xs" />
+
+    </div>
+    <div class="col s4">
+      <select multiple matSelect [(ngModel)]="consultoresSel" name="ConsultoresSel" style="display: inherit !important;">
+        <option *ngFor="let option of consultores" [ngValue]="option">{{ option.nombre }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="input-field">
+    <input type="submit" [disabled]="!contactForm.form.valid" class="btn waves-effect waves-light cyan" value="Buscar" />
+  </div>
+</form>
+
+<br />
+
+<div *ngIf="gananciaConsultores">
+  <div class="row" *ngFor="let consultor of gananciaConsultores">
+
+    <table class="table">
+      <tbody>
+        <tr bgcolor="#efefef">
+          <td colspan="5"><span>{{consultor.nombre}}</span> </td>
+        </tr>
+        <tr bgcolor="#fafafa">
+          <td nowrap=""><div align="center"><strong>Período</strong></div></td>
+          <td><div align="center"><strong>Receita Líquida </strong></div></td>
+          <td><div align="center"><strong>Custo Fixo </strong></div></td>
+          <td><div align="center"><strong>Comissão</strong></div></td>
+          <td><div align="center"><strong>Lucro</strong></div></td>
+        </tr>
+        <tr bgcolor="#fafafa" *ngFor="let detalle of consultor.detalle">
+          <td nowrap="">{{detalle.mes}} de {{detalle.anio}}</td>
+          <td><div align="right">R$ {{detalle.receitaLiquida}}</div></td>
+          <td><div align="right">- R$ {{detalle.salario}}</div></td>
+          <td><div align="right">- R$ {{detalle.comision}}</div></td>
+          <td><div align="right"><font color="#FF0000">- R$ {{detalle.lucro}}</font></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

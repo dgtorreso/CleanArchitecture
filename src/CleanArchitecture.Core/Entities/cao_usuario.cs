@@ -121,5 +121,10 @@ namespace CleanArchitecture.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cao_salario_pag> cao_salario_pag { get; set; }
+
+        public virtual ICollection<cao_sistema> Cao_Sistemas { get; set; }
+        public virtual ICollection<cao_os> Cao_Os { get; set; }
+        public virtual ICollection<permissao_sistema> permissao_sistema { get; set; }
+        public virtual ICollection<cao_salario> Cao_Salarios { get; set; }
     }
 }

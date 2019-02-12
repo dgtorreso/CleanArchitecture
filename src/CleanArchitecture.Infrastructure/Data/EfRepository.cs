@@ -26,6 +26,11 @@ namespace CleanArchitecture.Infrastructure.Data
             return _dbContext.Set<T>().ToList();
         }
 
+        public IQueryable<T> Consultar<T>() where T : BaseEntity
+        {
+            return _dbContext.Set<T>();
+        }
+
         public T Add<T>(T entity) where T : BaseEntity
         {
             _dbContext.Set<T>().Add(entity);

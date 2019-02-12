@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using CleanArchitecture.Core.Interfaces.Services;
+using CleanArchitecture.Core.Services;
 using CleanArchitecture.Core.SharedKernel;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +39,9 @@ namespace CleanArchitecture.Web
             string dbName = Guid.NewGuid().ToString();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Services
+            services.AddScoped<IComercialPerformanceService, ComercialPerformanceService>();
 
             services.AddMvc()
                 .AddControllersAsServices()

@@ -24,7 +24,7 @@ namespace CleanArchitecture.Core.Entities
 
         [StringLength(50)]
         public string co_usuario { get; set; }
-
+        public virtual cao_usuario Cao_Usuario { get; set; }
         public int? co_arquitetura { get; set; }
 
         [StringLength(200)]
@@ -77,5 +77,7 @@ namespace CleanArchitecture.Core.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cao_hist_ocorrencias_os> cao_hist_ocorrencias_os { get; set; }
+        public virtual ICollection<cao_fatura> Cao_Faturas { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Core.SharedKernel;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CleanArchitecture.Core.Interfaces
 {
@@ -10,5 +11,6 @@ namespace CleanArchitecture.Core.Interfaces
         T Add<T>(T entity) where T : BaseEntity;
         void Update<T>(T entity) where T : BaseEntity;
         void Delete<T>(T entity) where T : BaseEntity;
+        IQueryable<T> Consultar<T>() where T : BaseEntity;
     }
 }

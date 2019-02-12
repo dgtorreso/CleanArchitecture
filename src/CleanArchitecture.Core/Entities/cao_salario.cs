@@ -13,7 +13,7 @@ namespace CleanArchitecture.Core.Entities
         [Column(Order = 0)]
         [StringLength(20)]
         public string co_usuario { get; set; }
-
+        public virtual cao_usuario Cao_Usuario { get; set; }
         [Key]
         [Column(Order = 1, TypeName = "date")]
         public DateTime dt_alteracao { get; set; }

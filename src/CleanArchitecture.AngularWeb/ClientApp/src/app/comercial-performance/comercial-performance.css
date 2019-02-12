@@ -1,0 +1,10 @@
+.select-wrapper input.select-dropdown, .select-wrapper span.caret {
+  display: none !important;
+}
+label.labelSelect {
+  font-size: 1.3rem;
+  color: #7c7c7c;
+}
+select.select-custom {
+  display: inherit !important;
+}
