@@ -104,12 +104,14 @@
   </div>
   <div class="input-field">
     <input type="submit" [disabled]="!contactForm.form.valid" class="btn waves-effect waves-light cyan" value="Buscar" />
+    <input type="button" [disabled]="!contactForm.form.valid"  (click)="mostrarBarras($event)" class="btn waves-effect waves-light cyan" value="Gráfico Barras" />
+    <input type="button" [disabled]="!contactForm.form.valid"  (click)="mostrarTorta($event)" class="btn waves-effect waves-light cyan" value="Gráfico Torta" />
   </div>
 </form>
 
 <br />
 
-<div *ngIf="gananciaConsultores">
+<div *ngIf="verTabla">
   <div class="row" *ngFor="let consultor of gananciaConsultores">
 
     <table class="table">
@@ -136,3 +138,9 @@
   </div>
 </div>
 
+<div [ngClass]="{'hidden': !verBarras}">
+  <canvas id="canvas">{{ chart }}</canvas>
+</div>
+<div [ngClass]="{'hidden': !verTorta}">
+  <canvas id="torta-canvas">{{ chart }}</canvas>
+</div>

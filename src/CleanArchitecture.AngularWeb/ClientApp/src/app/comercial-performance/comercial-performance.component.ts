@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-comercial-performance',
@@ -12,6 +13,9 @@ export class ComercialPerformanceComponent implements OnInit {
   public gananciaConsultores: GananciasPorConsultor[];
   public puedeMostrarClientes: boolean;
   public obteniendoDatos: boolean;
+  public verBarras: boolean;
+  public verTorta: boolean;
+  public verTabla: boolean;
   public listaClientes: Cliente[];
   public listaClientesSel: Cliente[];
   public clientes: Cliente[] = [];
@@ -22,6 +26,8 @@ export class ComercialPerformanceComponent implements OnInit {
   public consultoresSel: Consultor[];
   public http: HttpClient;
   public baseUrl: string;
+  public chart: Chart = null;
+  public torta: Chart = null;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
@@ -39,10 +45,11 @@ export class ComercialPerformanceComponent implements OnInit {
       this.obteniendoDatos = false;
     }, error => console.error(error));
   }
-
   public mostrarClientes($event: any) {
     $event.preventDefault();
-    this.puedeMostrarClientes = true;
+
+    
+    
   }
 
   public mostrarConsultores($event: any) {
@@ -107,15 +114,111 @@ export class ComercialPerformanceComponent implements OnInit {
     this.consultores.forEach(a => params = params.append('consultorIds', a.id));
     console.log(params.toString());
     this.http.get<GananciasPorConsultor[]>(this.baseUrl + 'api/ComercialPerformance/ObtenerGananciasPorConsultor', { params: params }).subscribe(result => {
-      console.dir(result);
+      this.verBarras = false;
+      this.verTorta = false;
+      this.verTabla = true;
       this.gananciaConsultores = result;
     }, error => console.error(error));
   }
 
-  public onSelectedChange(value: any) {
-    // do something else with the value
-    console.log(value);
+  public mostrarBarras($event: any) {
+    $event.preventDefault();
+    this.verBarras = true;
+    this.verTorta = false;
+    this.verTabla = false;
+    let params = new HttpParams()
+      .set('DesdeMes', this.ContactModel.desdeMes.toString())
+      .set('DesdeAnio', this.ContactModel.desdeAnio.toString())
+      .set('HastaMes', this.ContactModel.hastaMes.toString())
+      .set('HastaAnio', this.ContactModel.hastaAnio.toString());
+    this.consultores.forEach(a => params = params.append('consultorIds', a.id));
+    console.log(params.toString());
+    this.http.get<any>(this.baseUrl + 'api/ComercialPerformance/ObtenerGananciasPorConsultorBar', { params: params }).subscribe(result => {
+      
+      var chartOptions = {
+        responsive: true,
+        legend: {
+          position: "top"
+        },
+        title: {
+          display: true,
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+      if(this.chart == null){
+        this.chart = new Chart('canvas', {
+          type: "bar",
+          data: result,
+          options: chartOptions
+        });
+      }else{
+        this.chart.data = result;
+        this.chart.update();
+      }
+    }, error => console.error(error));
   }
+
+  public mostrarTorta($event: any) {
+    $event.preventDefault();
+    this.verBarras = false;
+    this.verTorta = true;
+    this.verTabla = false;
+    
+    let params = new HttpParams()
+      .set('DesdeMes', this.ContactModel.desdeMes.toString())
+      .set('DesdeAnio', this.ContactModel.desdeAnio.toString())
+      .set('HastaMes', this.ContactModel.hastaMes.toString())
+      .set('HastaAnio', this.ContactModel.hastaAnio.toString());
+    this.consultores.forEach(a => params = params.append('consultorIds', a.id));
+    console.log(params.toString());
+    this.http.get<any>(this.baseUrl + 'api/ComercialPerformance/ObtenerGananciasPorConsultorTorta', { params: params }).subscribe(result => {
+      if(this.torta == null){
+    var config = {
+      type: 'doughnut',
+      data: result,
+      options: {
+        showTooltips: false,
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: false,
+          text: 'Chart.js Doughnut Chart'
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              var dataset = data.datasets[tooltipItem.datasetIndex];
+              var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                return previousValue + currentValue;
+              });
+              var currentValue = dataset.data[tooltipItem.index];
+              var precentage = Math.floor(((currentValue/total) * 100)+0.5);         
+              return precentage + "%";
+            }
+          }
+        }
+      }
+    };
+    this.torta = new Chart('torta-canvas', config);
+  }else{
+    this.torta.data = result;
+    this.torta.update();
+  }
+  }, error => console.error(error));
+}
+
 }
 
 interface GananciasPorConsultor {
