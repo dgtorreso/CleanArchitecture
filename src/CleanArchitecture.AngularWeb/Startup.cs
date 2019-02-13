@@ -25,17 +25,18 @@ namespace CleanArchitecture.AngularWeb
         }
 
         public IConfiguration Configuration { get; }
+        public bool UsarMysql { get; set; } = true;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // TODO: Add DbContext and IOC
             // TODO: Add DbContext and IOC
-            if (false)
+            if (UsarMysql)
             {
 
                 services.AddDbContext<AppDbContext>( // replace "YourDbContext" with the class name of your DbContext
-                    options => options.UseMySql("Server=localhost;Database=caol;User=root;", // replace with your Connection String
+                    options => options.UseMySql("Server=localhost;Database=caol;User=inspeccion;Password=venga;", // replace with your Connection String
                         mysqlOptions =>
                         {
                             mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
