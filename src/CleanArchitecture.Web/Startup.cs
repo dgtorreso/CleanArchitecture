@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Reflection;
@@ -36,9 +37,22 @@ namespace CleanArchitecture.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             // TODO: Add DbContext and IOC
-            string dbName = Guid.NewGuid().ToString();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            if(true)
+            {
+
+                services.AddDbContext<AppDbContext>( // replace "YourDbContext" with the class name of your DbContext
+                    options => options.UseMySql("Server=localhost;Database=caol;User=root;", // replace with your Connection String
+                        mysqlOptions =>
+                        {
+                            mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
+                    }
+                ));
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
 
             //Services
             services.AddScoped<IComercialPerformanceService, ComercialPerformanceService>();

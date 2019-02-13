@@ -33,24 +33,6 @@ namespace CleanArchitecture.Core.Entities
         [StringLength(20)]
         public string co_usuario_autorizacao { get; set; }
 
-        [Column(TypeName = "numeric")]
-        public decimal? nu_matricula { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? dt_nascimento { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? dt_admissao_empresa { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? dt_desligamento { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        public DateTime? dt_inclusao { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? dt_expiracao { get; set; }
-
         [StringLength(14)]
         public string nu_cpf { get; set; }
 
@@ -74,9 +56,6 @@ namespace CleanArchitecture.Core.Entities
 
         [StringLength(64)]
         public string nu_telefone { get; set; }
-
-        [Column(TypeName = "datetime2")]
-        public DateTime dt_alteracao { get; set; }
 
         [StringLength(255)]
         public string url_foto { get; set; }
@@ -107,8 +86,6 @@ namespace CleanArchitecture.Core.Entities
         [StringLength(2)]
         public string uf_cidade { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? dt_expedicao { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cao_conhecimentos> cao_conhecimentos { get; set; }

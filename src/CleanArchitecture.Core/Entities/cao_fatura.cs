@@ -14,13 +14,12 @@ namespace CleanArchitecture.Core.Entities
 
         public int co_cliente { get; set; }
 
-        public virtual cao_cliente cao_Cliente { get; set; }
     
         public int co_sistema { get; set; }
-        public virtual cao_sistema Cao_Sistema { get; set; }
+        public virtual cao_sistema Sistema { get; set; }
 
         public int co_os { get; set; }
-        public virtual cao_os Cao_Os { get; set; }
+        public virtual cao_os Os { get; set; }
 
         public int num_nf { get; set; }
 

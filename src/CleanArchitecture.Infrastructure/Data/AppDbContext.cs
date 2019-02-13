@@ -699,42 +699,6 @@ namespace CleanArchitecture.Infrastructure.Data
                 .Property(e => e.co_usuario)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.ds_os)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.ds_caracteristica)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.ds_requisito)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.diretoria_sol)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.nu_tel_sol)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.ddd_tel_sol)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.nu_tel_sol2)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.ddd_tel_sol2)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<cao_os>()
-                .Property(e => e.usuario_sol)
-                .IsUnicode(false);
-
             modelBuilder.Entity<cao_os_analista>()
                 .Property(e => e.co_usuario)
                 .IsUnicode(false);

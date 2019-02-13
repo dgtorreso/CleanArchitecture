@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -29,9 +30,23 @@ namespace CleanArchitecture.AngularWeb
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // TODO: Add DbContext and IOC
-            string dbName = Guid.NewGuid().ToString();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // TODO: Add DbContext and IOC
+            if (false)
+            {
+
+                services.AddDbContext<AppDbContext>( // replace "YourDbContext" with the class name of your DbContext
+                    options => options.UseMySql("Server=localhost;Database=caol;User=root;", // replace with your Connection String
+                        mysqlOptions =>
+                        {
+                            mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
+                        }
+                ));
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

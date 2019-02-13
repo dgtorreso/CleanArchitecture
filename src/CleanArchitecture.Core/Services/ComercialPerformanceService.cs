@@ -34,15 +34,22 @@ namespace CleanArchitecture.Core.Services
         {
             var desde = new DateTime(input.DesdeAnio, input.DesdeMes, 1);
             var hasta = new DateTime(input.HastaAnio, input.HastaMes, 1).AddMonths(1);
-            var consulta = this.repository.Consultar<cao_fatura>()
-                .Where(a => input.consultorIds.Contains(a.Cao_Os.co_usuario) && a.data_emissao >= desde && a.data_emissao <= hasta).Select(a => new
+            var usuarios = this.repository.Consultar<cao_usuario>().Where(a => input.consultorIds.Contains(a.co_usuario)).ToList();
+            var oss = this.repository.Consultar<cao_os>().Where(a=> input.consultorIds.Contains(a.co_usuario)).ToList();
+            var osIds = oss.Select(a => a.co_os).ToList();
+            var facturas = this.repository.Consultar<cao_fatura>()
+                .Where(a => osIds.Contains(a.co_os) && a.data_emissao >= desde && a.data_emissao <= hasta).ToList();
+            var salarios = this.repository.Consultar<cao_salario>().Where(a => input.consultorIds.Contains(a.co_usuario)).ToList();
+            facturas.ForEach(a=> a.Os = oss.First(b=> b.co_os == a.co_os));
+            oss.ForEach(a=> a.Cao_Usuario = usuarios.First(b=> b.co_usuario == a.co_usuario));
+            var consulta = facturas.Select(a => new
                 {
                     receita_liquida = a.valor * (a.total_imp_inc / 100),
                     fecha = a.data_emissao,
                     comision = (a.valor - (a.valor * (a.total_imp_inc / 100))) * (a.comissao_cn / 100),
-                    ConsultorId = a.Cao_Os.co_usuario,
-                    ConsultorDesc = a.Cao_Os.Cao_Usuario.no_usuario,
-                    Salario = a.Cao_Os.Cao_Usuario.Cao_Salarios.FirstOrDefault().brut_salario,
+                    ConsultorId = a.Os.co_usuario,
+                    ConsultorDesc = a.Os.Cao_Usuario.no_usuario,
+                    Salario = salarios.FirstOrDefault(b=> b.co_usuario == a.Os.co_usuario)?.brut_salario ?? 0,
                 });
 
             return consulta.GroupBy(a => new { a.ConsultorId, a.ConsultorDesc })
