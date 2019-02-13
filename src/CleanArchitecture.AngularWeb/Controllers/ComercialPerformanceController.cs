@@ -69,9 +69,16 @@ namespace CleanArchitecture.AngularWeb.Controllers
                 chart.datasets.Add(new Dataset
                 {
                     label = reg.Nombre,
+                    backgroundColor = ChartBarDTO.getRandomColor(),
                     data = listaMeses.Select(a => reg.Detalle.FirstOrDefault(b => b.Anio == a.Item2 && b.Mes == a.Item1)?.ReceitaLiquida ?? 0).ToList()
                 });
             }
+            chart.datasets.Add(new Dataset
+            {
+                label = "Fijo",
+                type = "line",
+                data = listaMeses.Select(a=> res.Average(con=> con.Detalle.FirstOrDefault(det=> det.Anio == a.Item2 && det.Mes == a.Item1)?.Salario ?? 0)).ToList()
+            });
             return chart;
         }
 

@@ -40,7 +40,8 @@ namespace CleanArchitecture.Core.DTOs
     public class Dataset
     {
         public string label { get; set; }
-        public string backgroundColor { get => ChartBarDTO.getRandomColor(); }
+        public string type { get; set; } = null;
+        public string backgroundColor { get; set; }
         public List<float> data { get; set; }
 
     }
