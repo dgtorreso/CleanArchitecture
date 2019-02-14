@@ -16,8 +16,10 @@ Este proyecto está desarrollado como un ejercicio.
  - Inyección de dependencias
  - Repository
  - EF Code First
- - AngularJs
+ - Angular 5
  - WebAPI
+ - MsSql Server
+ - MySql
 
 ## Dependencias
 
