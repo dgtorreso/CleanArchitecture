@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Chart } from 'chart.js';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-comercial-performance',
@@ -29,7 +30,8 @@ export class ComercialPerformanceComponent implements OnInit {
   public chart: Chart = null;
   public torta: Chart = null;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, app: AppComponent) {
+    app.pageTitle = "Comercial Performance";
     this.http = http;
     this.baseUrl = baseUrl;
     this.puedeMostrarClientes = false;
@@ -47,11 +49,24 @@ export class ComercialPerformanceComponent implements OnInit {
   }
   public mostrarClientes($event: any) {
     $event.preventDefault();
-
-    
-    
+    this.puedeMostrarClientes = true;
+  }
+  public puedeBuscar(){
+    return this.hayConsultores() && !this.fechaErronea() && !this.puedeMostrarClientes;
   }
 
+  public hayConsultores(){
+    if(this.consultores.length > 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  public fechaErronea(){
+    return new Date(this.ContactModel.desdeAnio,this.ContactModel.desdeMes,1) 
+            > new Date(this.ContactModel.hastaAnio,this.ContactModel.hastaMes, 1);
+  }
   public mostrarConsultores($event: any) {
     $event.preventDefault();
     this.puedeMostrarClientes = false;

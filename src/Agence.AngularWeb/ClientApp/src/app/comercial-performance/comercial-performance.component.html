@@ -1,6 +1,6 @@
-<h1>atividades</h1>
+<h1>Consulta de Comercial Performance</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>En este módulo se pueden consultar la información de ganancia de consultores.</p>
 
 <p *ngIf="obteniendoDatos"><em>Loading...</em></p>
 
@@ -62,6 +62,9 @@
     <div class="input-field">
       <button [ngClass]="{'btn-flat waves-effect': !puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': puedeMostrarClientes}" (click)="mostrarClientes($event)">Clientes</button>
       <button [ngClass]="{'btn-flat waves-effect': puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': !puedeMostrarClientes}" (click)="mostrarConsultores($event)">Consultores</button>
+      <span class="red white-text" [ngClass]="{'hidden': puedeMostrarClientes || hayConsultores()}">Antes de buscar seleccione al menos un consultor.</span>
+      <span class="red white-text" [ngClass]="{'hidden': !puedeMostrarClientes}">Lamentablemente no está implementada la búsqueda de info para clientes.</span>
+      <span class="red white-text" [ngClass]="{'hidden': !fechaErronea()}">La fecha introducida es erronea.</span>
     </div>
   </div>
 
@@ -102,10 +105,11 @@
       </select>
     </div>
   </div>
-  <div class="input-field">
-    <input type="submit" [disabled]="!contactForm.form.valid" class="btn waves-effect waves-light cyan" value="Buscar" />
-    <input type="button" [disabled]="!contactForm.form.valid"  (click)="mostrarBarras($event)" class="btn waves-effect waves-light cyan" value="Gráfico Barras" />
-    <input type="button" [disabled]="!contactForm.form.valid"  (click)="mostrarTorta($event)" class="btn waves-effect waves-light cyan" value="Gráfico Torta" />
+<br />
+<div class="input-field">
+    <input type="submit" [disabled]="!puedeBuscar()" class="btn waves-effect waves-light cyan" value="Ver Registros" />
+    <input type="button" [disabled]="!puedeBuscar()"  (click)="mostrarBarras($event)" class="btn waves-effect waves-light cyan" value="Gráfico Barras" />
+    <input type="button" [disabled]="!puedeBuscar()"  (click)="mostrarTorta($event)" class="btn waves-effect waves-light cyan" value="Gráfico Torta" />
   </div>
 </form>
 
