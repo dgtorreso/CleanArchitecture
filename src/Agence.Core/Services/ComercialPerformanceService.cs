@@ -57,6 +57,10 @@ namespace Agence.Core.Services
                 {
                     ConsultorId = a.Key.ConsultorId,
                     Nombre = a.Key.ConsultorDesc,
+                    Comision = a.Sum(b=>b.comision),
+                    Lucro = a.Sum(b=> b.Salario + b.comision),
+                    ReceitaLiquida = a.Sum(b=>b.receita_liquida),
+                    Salario = a.Sum(b=>b.Salario),
                     Detalle = a.GroupBy(b => new { b.fecha.Month, b.fecha.Year })
                     .Select(b => new GananciasPorConsultorDetalleDTO
                     {

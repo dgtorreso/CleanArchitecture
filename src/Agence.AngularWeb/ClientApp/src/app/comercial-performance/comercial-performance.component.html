@@ -6,7 +6,7 @@
 
 <form (ngSubmit)="onSubmit(contactForm);" #contactForm="ngForm">
   <div class="row">
-    <div class="col s2">
+    <div class="col m2">
       <label for="desdeMes" class="labelSelect">Desde Mes</label>
       <select placehoder="hola" #desdeMes [(ngModel)]="ContactModel.desdeMes" name="DesdeMes" class="select-custom" required>
         <option value="1" selected>Jan</option>
@@ -23,7 +23,7 @@
         <option value="12">Dez</option>
       </select>
     </div>
-    <div class="col s2">
+    <div class="col m2">
       <label for="desdeAnio" class="labelSelect">Desde Año</label>
       <select #desdeAnio [(ngModel)]="ContactModel.desdeAnio" class="select-custom" name="DesdeAnio" required>
         <option selected>2005</option>
@@ -31,7 +31,7 @@
         <option>2007</option>
       </select>
     </div>
-    <div class="col s2">
+    <div class="col m2">
       <label for="hastaMes" class="labelSelect">Hasta Mes</label>
       <select #hastaMes [(ngModel)]="ContactModel.hastaMes" class="select-custom" name="HastaMes" required>
         <option value="1">Jan</option>
@@ -48,7 +48,7 @@
         <option value="12" selected>Dez</option>
       </select>
     </div>
-    <div class="col s2">
+    <div class="col m2">
       <label for="hastaAnio" class="labelSelect">Hasta Año</label>
       <select #hastaAnio [(ngModel)]="ContactModel.hastaAnio" class="select-custom" name="HastaAnio" required>
         <option>2005</option>
@@ -60,8 +60,12 @@
   <br />
   <div class="row">
     <div class="input-field">
-      <button [ngClass]="{'btn-flat waves-effect': !puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': puedeMostrarClientes}" (click)="mostrarClientes($event)">Clientes</button>
-      <button [ngClass]="{'btn-flat waves-effect': puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': !puedeMostrarClientes}" (click)="mostrarConsultores($event)">Consultores</button>
+      <button [ngClass]="{'btn-flat waves-effect': !puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': puedeMostrarClientes}" (click)="mostrarClientes($event)">
+          <i *ngIf="puedeMostrarClientes" class="material-icons left">people</i>Clientes
+      </button>
+      <button [ngClass]="{'btn-flat waves-effect': puedeMostrarClientes, 'btn waves-effect waves-light green darken-1': !puedeMostrarClientes}" (click)="mostrarConsultores($event)">
+        <i  *ngIf="!puedeMostrarClientes" class="material-icons left">face</i>Consultores
+      </button>
       <span class="red white-text" [ngClass]="{'hidden': puedeMostrarClientes || hayConsultores()}">Antes de buscar seleccione al menos un consultor.</span>
       <span class="red white-text" [ngClass]="{'hidden': !puedeMostrarClientes}">Lamentablemente no está implementada la búsqueda de info para clientes.</span>
       <span class="red white-text" [ngClass]="{'hidden': !fechaErronea()}">La fecha introducida es erronea.</span>
@@ -71,17 +75,21 @@
   <br />
 
   <div *ngIf="!obteniendoDatos" [ngClass]="{'hidden': !puedeMostrarClientes}" class="row">
-    <div class="col s4">
+    <div class="col m4">
       <select multiple matSelect [(ngModel)]="listaClientesSel" name="ListaClientesSel" style="display: inherit !important;">
         <option *ngFor="let option of listaClientes" [ngValue]="option">{{ option.descripcion }}</option>
       </select>
     </div>
-    <div class="col s3">
-      <button (click)="agregarClientes($event)" class="btn waves-effect waves-light purple lightrn-1 btn-xs">Agregar</button>
-      <button (click)="quitarClientes($event)" class="btn waves-effect waves-light red lightrn-1 btn-xs">Quitar</button>
-
+    <div class="col s2 center">
+      <button (click)="agregarClientes($event)" class="btn waves-effect waves-light green lightrn-1 btn-xs">
+        <i class="material-icons center">fast_forward</i>
+      </button>
+        <br />
+      <button (click)="quitarClientes($event)" class="btn waves-effect waves-light red lightrn-1 btn-xs">
+        <i class="material-icons center">fast_rewind</i>
+      </button>
     </div>
-    <div class="col s4">
+    <div class="col m4">
       <select multiple matSelect [(ngModel)]="clientesSel" name="ClientesSel" style="display: inherit !important;">
         <option *ngFor="let option of clientes" [ngValue]="option">{{ option.descripcion }}</option>
       </select>
@@ -94,10 +102,14 @@
         <option *ngFor="let option of listaConsultores" [ngValue]="option">{{ option.nombre }}</option>
       </select>
     </div>
-    <div class="col s2">
-      <input type="button" (click)="agregarConsultores($event)" value="Agregar" class="btn waves-effect waves-light purple lightrn-1 btn-xs" />
-      <input type="button" (click)="quitarConsultores($event)" value="Quitar" class="btn waves-effect waves-light red lightrn-1 btn-xs" />
-
+    <div class="col s2 center">
+      <button (click)="agregarConsultores($event)" class="btn waves-effect waves-light green lightrn-1 btn-xs">
+        <i class="material-icons center">fast_forward</i>
+      </button>
+        <br />
+      <button (click)="quitarConsultores($event)" class="btn waves-effect waves-light red lightrn-1 btn-xs">
+        <i class="material-icons center">fast_rewind</i>
+      </button>
     </div>
     <div class="col s4">
       <select multiple matSelect [(ngModel)]="consultoresSel" name="ConsultoresSel" style="display: inherit !important;">
@@ -107,9 +119,15 @@
   </div>
 <br />
 <div class="input-field">
-    <input type="submit" [disabled]="!puedeBuscar()" class="btn waves-effect waves-light cyan" value="Ver Registros" />
-    <input type="button" [disabled]="!puedeBuscar()"  (click)="mostrarBarras($event)" class="btn waves-effect waves-light cyan" value="Gráfico Barras" />
-    <input type="button" [disabled]="!puedeBuscar()"  (click)="mostrarTorta($event)" class="btn waves-effect waves-light cyan" value="Gráfico Torta" />
+    <button [disabled]="!puedeBuscar()" class="btn waves-effect waves-light cyan">
+        <i class="material-icons left">border_all</i>Relatorio
+    </button>
+    <button [disabled]="!puedeBuscar()"  (click)="mostrarBarras($event)" class="btn waves-effect waves-light cyan">  
+        <i class="material-icons left">equalizer</i>Gráfico
+      </button>
+    <button [disabled]="!puedeBuscar()"  (click)="mostrarTorta($event)" class="btn waves-effect waves-light cyan">
+        <i class="material-icons left">pie_chart</i>Torta
+      </button>
   </div>
 </form>
 
@@ -118,7 +136,7 @@
 <div *ngIf="verTabla">
   <div class="row" *ngFor="let consultor of gananciaConsultores">
 
-    <table class="table">
+    <table class="table table-res" cellspacing="1" cellpadding="3" border="1">
       <tbody>
         <tr bgcolor="#efefef">
           <td colspan="5"><span>{{consultor.nombre}}</span> </td>
@@ -131,11 +149,18 @@
           <td><div align="center"><strong>Lucro</strong></div></td>
         </tr>
         <tr bgcolor="#fafafa" *ngFor="let detalle of consultor.detalle">
-          <td nowrap="">{{detalle.mes}} de {{detalle.anio}}</td>
-          <td><div align="right">R$ {{detalle.receitaLiquida}}</div></td>
-          <td><div align="right">- R$ {{detalle.salario}}</div></td>
-          <td><div align="right">- R$ {{detalle.comision}}</div></td>
-          <td><div align="right"><font color="#FF0000">- R$ {{detalle.lucro}}</font></div></td>
+          <td nowrap="">{{meses[detalle.mes]}} de {{detalle.anio}}</td>
+          <td><div align="right">R$ {{detalle.receitaLiquida.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{detalle.salario.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{detalle.comision.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{detalle.lucro.toFixed(2)}}</div></td>
+        </tr>
+        <tr bgcolor="#efefef">
+          <td nowrap="">SALDO</td>
+          <td><div align="right">R$ {{consultor.receitaLiquida.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{consultor.salario.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{consultor.comision.toFixed(2)}}</div></td>
+          <td><div align="right">R$ {{consultor.lucro.toFixed(2)}}</div></td>
         </tr>
       </tbody>
     </table>

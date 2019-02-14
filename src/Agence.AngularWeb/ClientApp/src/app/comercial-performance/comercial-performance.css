@@ -8,3 +8,7 @@ label.labelSelect {
 select.select-custom {
   display: inherit !important;
 }
+
+.table-res td{
+  border: 1px solid #ddd;
+}

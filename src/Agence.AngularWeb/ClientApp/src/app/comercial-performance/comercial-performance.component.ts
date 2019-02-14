@@ -29,6 +29,7 @@ export class ComercialPerformanceComponent implements OnInit {
   public baseUrl: string;
   public chart: Chart = null;
   public torta: Chart = null;
+  public meses: string[] = ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, app: AppComponent) {
     app.pageTitle = "Comercial Performance";
@@ -239,6 +240,10 @@ export class ComercialPerformanceComponent implements OnInit {
 interface GananciasPorConsultor {
   consultorId: number;
   nombre: string;
+  receitaLiquida: number;
+  comision: number;
+  salario: number;
+  lucro: number;
   detalle: GananciasPorConsultorDetalle[];
 }
 
